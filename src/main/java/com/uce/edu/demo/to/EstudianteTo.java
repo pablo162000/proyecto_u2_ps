@@ -1,6 +1,6 @@
 package com.uce.edu.demo.to;
 
-public class Estudiante {
+public class EstudianteTo {
 
 	private int id;
 	private String nombre;
@@ -8,7 +8,7 @@ public class Estudiante {
 	private String cedula;
 	private String genero;
 
-	public Estudiante() {
+	public EstudianteTo() {
 		// TODO Auto-generated constructor stub
 	}
 	
@@ -22,7 +22,7 @@ public class Estudiante {
 
 
 
-	public Estudiante(int id, String nombre, String apellido, String cedula, String genero) {
+	public EstudianteTo(int id, String nombre, String apellido, String cedula, String genero) {
 		super();
 		this.id = id;
 		this.nombre = nombre;

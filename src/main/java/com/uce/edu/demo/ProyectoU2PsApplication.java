@@ -1,16 +1,13 @@
 package com.uce.edu.demo;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import com.uce.edu.demo.repository.modelo.Persona;
-import com.uce.edu.demo.service.IPersonaJdbcService;
-import com.uce.edu.demo.service.IPersonaJpaService;
-import com.uce.edu.demo.to.PersonaTo;
-
-import org.apache.log4j.Logger;
+import com.uce.edu.demo.repository.modelo.Estudiante;
+import com.uce.edu.demo.service.IEstudianteJpaService;
 
 @SpringBootApplication
 public class ProyectoU2PsApplication implements CommandLineRunner {
@@ -23,30 +20,37 @@ public class ProyectoU2PsApplication implements CommandLineRunner {
 
 	
 	@Autowired
-	IPersonaJpaService iPersonaJpaService;
+	private IEstudianteJpaService iEstudianteJpaService;
+
 
 	@Override
 	public void run(String... args) throws Exception {
 		// TODO Auto-generated method stub
-		logJava.info("Dato con JPA: "+ this.iPersonaJpaService.buscarPorId(4));
+		//BUSCAR
+		logJava.info("Dato con JPA: "+ this.iEstudianteJpaService.buscarPorId(1));
 	
-		Persona per = new  Persona();
-		per.setId(7);
-		per.setNombre("Edison");
-		per.setApellido("Vasquez");
+		
 		//GUARDAR
-		//this.iPersonaJpaService.guardar(per);
+		Estudiante estudiante =new Estudiante();
+		estudiante.setApellido("Joestar");
+		estudiante.setNombre("Jonathan");
+		estudiante.setCedula("8481818118");
+		estudiante.setGenero("M");
+		estudiante.setId(5);
+		this.iEstudianteJpaService.guardar(estudiante);
 		
 		//ACTUALIZAR
-		Persona per1 = new  Persona();
-		per1.setId(4);
-		per1.setNombre("Andrea ");
-		per1.setApellido("Solis");
-		this.iPersonaJpaService.actualizar(per1);
+		Estudiante estudiante1 =new Estudiante();
+		estudiante1.setApellido("Axel");
+		estudiante1.setNombre("Rose");
+		estudiante1.setCedula("181788849");
+		estudiante1.setGenero("M");
+		estudiante1.setId(3);
+		this.iEstudianteJpaService.actualizar(estudiante1);
 		
 	
 		//ELIMINAR
-		this.iPersonaJpaService.eliminar(1);
+		this.iEstudianteJpaService.eliminar(4);
 	
 	}
 

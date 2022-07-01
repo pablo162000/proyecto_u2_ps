@@ -7,7 +7,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.uce.edu.demo.ProyectoU2PsApplication;
-import com.uce.edu.demo.to.Estudiante;
+import com.uce.edu.demo.to.EstudianteTo;
 @Repository
 public class EstudianteJdbcRepositoryImpl implements IEstudianteJdbcRepository  {
 
@@ -18,30 +18,30 @@ public class EstudianteJdbcRepositoryImpl implements IEstudianteJdbcRepository  
 
 
 	@Override
-	public Estudiante buscarPorId(int id) {
+	public EstudianteTo buscarPorId(int id) {
 		// TODO Auto-generated method stub
 		logJava.info("Se ha buscado es estudiante de id: "+ id);
 		 return this.jdbcTemplate.queryForObject("select * from estudiante where id=?", 
-				new Object[] { id}, new BeanPropertyRowMapper<Estudiante>(Estudiante.class));
+				new Object[] { id}, new BeanPropertyRowMapper<EstudianteTo>(EstudianteTo.class));
 	}
 
 	@Override
-	public void insertar(Estudiante estudiante) {
+	public void insertar(EstudianteTo estudianteTo) {
 		// TODO Auto-generated method stub
-		logJava.info("Se ha insertado el estudiante: "+estudiante);
+		logJava.info("Se ha insertado el estudiante: "+estudianteTo);
 
 		this.jdbcTemplate.update("insert into estudiante (id, nombre, apellido, cedula, genero) values (?,?,?,?,?)",
-				new Object[] { estudiante.getId(), estudiante.getNombre(), estudiante.getApellido(),estudiante.getCedula(),estudiante.getGenero() });
+				new Object[] { estudianteTo.getId(), estudianteTo.getNombre(), estudianteTo.getApellido(),estudianteTo.getCedula(),estudianteTo.getGenero() });
 
 	}
 
 	@Override
-	public void actualizar(Estudiante estudiante) {
+	public void actualizar(EstudianteTo estudianteTo) {
 		// TODO Auto-generated method stub
-		logJava.info("Se ha actualizado el estudiante: "+estudiante);
+		logJava.info("Se ha actualizado el estudiante: "+estudianteTo);
 
 		this.jdbcTemplate.update("update estudiante set nombre=?, apellido=?, cedula=?, genero=?  where id=? ",
-				new Object[] { estudiante.getNombre(), estudiante.getApellido(),estudiante.getCedula(),estudiante.getGenero(),estudiante.getId()  });
+				new Object[] { estudianteTo.getNombre(), estudianteTo.getApellido(),estudianteTo.getCedula(),estudianteTo.getGenero(),estudianteTo.getId()  });
 	}
 
 	@Override

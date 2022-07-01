@@ -1,7 +1,6 @@
 package com.uce.edu.demo.repository;
 
 import com.uce.edu.demo.repository.modelo.Persona;
-import com.uce.edu.demo.to.PersonaTo;
 
 public interface IPersonaJpaRepository {
 	
