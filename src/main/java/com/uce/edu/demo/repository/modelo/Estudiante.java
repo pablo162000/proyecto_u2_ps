@@ -1,6 +1,7 @@
 package com.uce.edu.demo.repository.modelo;
 
 import javax.persistence.Column;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
