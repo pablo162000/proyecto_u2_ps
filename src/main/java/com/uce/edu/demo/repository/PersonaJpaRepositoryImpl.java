@@ -4,7 +4,6 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 
-
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.transaction.Transactional;
@@ -15,11 +14,11 @@ import com.uce.edu.demo.repository.modelo.Persona;
 
 @Repository
 @Transactional
-public class PersonaJpaRepositoryImpl implements IPersonaJpaRepository{
+public class PersonaJpaRepositoryImpl implements IPersonaJpaRepository {
 
 	@PersistenceContext
 	private EntityManager entityManager;
-	
+
 	@Override
 	public Persona buscarPorId(Integer id) {
 		// TODO Auto-generated method stub
@@ -48,27 +47,36 @@ public class PersonaJpaRepositoryImpl implements IPersonaJpaRepository{
 	@Override
 	public Persona buscarPorCedula(String cedula) {
 		// TODO Auto-generated method stub
-		//SELECT * FROM persona WHERE pers_cedula = '11355545'
-		Query jpqlQuery=this.entityManager.createQuery("SELECT p FROM Persona p WHERE p.cedula = :datoCedula");
+		// SELECT * FROM persona WHERE pers_cedula = '11355545'
+		Query jpqlQuery = this.entityManager.createQuery("SELECT p FROM Persona p WHERE p.cedula = :datoCedula");
 		jpqlQuery.setParameter("datoCedula", cedula);
-		
-		return (Persona)jpqlQuery.getSingleResult();
+
+		return (Persona) jpqlQuery.getSingleResult();
 	}
 
 	@Override
 	public List<Persona> buscarPorApellido(String apellido) {
 		// TODO Auto-generated method stub
-		Query myQuery=this.entityManager.createQuery("SELECT p FROM Persona p WHERE p.apellido = :datoApellido");
+		Query myQuery = this.entityManager.createQuery("SELECT p FROM Persona p WHERE p.apellido = :datoApellido");
 		myQuery.setParameter("datoApellido", apellido);
-		
-		return myQuery.getResultList();	
+
+		return myQuery.getResultList();
 	}
 
 	@Override
 	public List<Persona> buscarPorGenero(String genero) {
 		// TODO Auto-generated method stub
-		return null;
+		Query myQuery = this.entityManager.createQuery("SELECT p FROM Persona p WHERE p.genero = :datoGenero");
+		myQuery.setParameter("datoGenero", genero);
+		return myQuery.getResultList();
+	}
+	
+	@Override
+	public List<Persona> buscarPorNombre(String nombre) {
+		// TODO Auto-generated method stub
+		Query myQuery = this.entityManager.createQuery("SELECT p FROM Persona p WHERE p.nombre = :datoNombre");
+		myQuery.setParameter("datoNombre", nombre);
+		return myQuery.getResultList();
 	}
 
-	
 }

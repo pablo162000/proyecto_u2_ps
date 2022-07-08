@@ -65,6 +65,20 @@ public class ProyectoU2PsApplication implements CommandLineRunner {
 			
 		}
 		
+	    List<Persona> listaPersonaNombre=this.iPersonaJpaService.buscarPorNombre("Pepito");
+		
+		for(Persona item: listaPersonaNombre) {
+			logJava.info("Persona: "+ item);
+
+			
+		}
+		
+	    List<Persona> listaPersonaGenero=this.iPersonaJpaService.buscarPorGenero("M");
+		for(Persona item: listaPersonaGenero) {
+			logJava.info("Persona: "+ item);
+
+			
+		}
 		
 		}
 
