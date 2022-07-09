@@ -20,69 +20,20 @@ public class ProyectoU2PsApplication implements CommandLineRunner {
 
 	private static Logger logJava = Logger.getLogger(ProyectoU2PsApplication.class);
 
-	
 	@Autowired
 	IPersonaJpaService iPersonaJpaService;
 
 	@Override
 	public void run(String... args) throws Exception {
-		// TODO Auto-generated method stub
-		//BUSCAR
-		//logJava.info("Dato con JPA: "+ this.iPersonaJpaService.buscarPorId(4));
-	
-		
-		Persona per = new  Persona();
-		//per.setId(8);
-		per.setNombre("Pepito");
-		per.setApellido("Perez");
-		per.setGenero("M");
-		per.setCedula("511515115");
-		//GUARDAR
-		//this.iPersonaJpaService.guardar(per);
-		
-		//ACTUALIZAR
-		Persona per1 = new  Persona();
-		per1.setId(4);
-		per1.setNombre("Andrea ");
-		per1.setApellido("Solis");
-		//this.iPersonaJpaService.actualizar(per1);
-		
-	
-		//ELIMINAR
-		//this.iPersonaJpaService.eliminar(2);
-		
-		//BUSCAR POR CEDULA
-		Persona p = this.iPersonaJpaService.buscarPorCedula("511515115");
-		logJava.info(p);
-		
-		// BUSCAR POR APELLIDO
-		this.iPersonaJpaService.buscarPorApellido("Perez");
-		List<Persona> listaPersona=this.iPersonaJpaService.buscarPorApellido("Perez");
-		
-		for(Persona item: listaPersona) {
-			logJava.info("Persona: "+ item);
 
-			
-		}
-		
-	    List<Persona> listaPersonaNombre=this.iPersonaJpaService.buscarPorNombre("Pepito");
-		
-		for(Persona item: listaPersonaNombre) {
-			logJava.info("Persona: "+ item);
+//		//Actualizar con JPQL
+//		
+		int resultado = this.iPersonaJpaService.actualizarPorApellido("FE", "Perez");
+		logJava.info("Cantidad de registros actulizados " + resultado);
+//	
+		int resultado2 = this.iPersonaJpaService.eliminarPorGenero("M");
+		logJava.info("Cantidad de registros actulizados " + resultado2);
 
-			
-		}
-		
-	    List<Persona> listaPersonaGenero=this.iPersonaJpaService.buscarPorGenero("M");
-		for(Persona item: listaPersonaGenero) {
-			logJava.info("Persona: "+ item);
-
-			
-		}
-		
-		}
-
-	
-	
+	}
 
 }
