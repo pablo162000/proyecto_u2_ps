@@ -6,6 +6,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedNativeQueries;
+import javax.persistence.NamedNativeQuery;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.SequenceGenerator;
@@ -16,7 +18,13 @@ import javax.persistence.Table;
 
 @NamedQueries({
 		@NamedQuery(name = "Estudiante.buscarPorGenero", query = "SELECT e FROM Estudiante e WHERE e.genero = :datoGenero ORDER BY e.apellido"),
-		@NamedQuery(name = "Estudiante.buscarPorNombre", query = "SELECT e FROM Estudiante e WHERE e.nombre = :datoNombre ORDER BY e.id")})
+		@NamedQuery(name = "Estudiante.buscarPorNombre", query = "SELECT e FROM Estudiante e WHERE e.nombre = :datoNombre ORDER BY e.id")
+		})
+
+@NamedNativeQueries({
+	@NamedNativeQuery(name = "Estudiante.buscarNombreApellido", query = "SELECT * FROM estudiante WHERE estu_nombre = :datoNombre AND estu_apellido = :datoApellido", resultClass = Estudiante.class),
+	@NamedNativeQuery(name = "Estudiante.buscarPorSemestre", query = "SELECT * FROM estudiante WHERE estu_semestre = :datoSemestre ORDER BY estu_cedula",resultClass = Estudiante.class )
+	 })
 
 public class Estudiante {
 	@Id
@@ -33,11 +41,15 @@ public class Estudiante {
 	private String cedula;
 	@Column(name = "estu_genero")
 	private String genero;
+	@Column(name = "estu_semestre")
+	private String semestre;
+
+
 
 	@Override
 	public String toString() {
 		return "Estudiante [id=" + id + ", nombre=" + nombre + ", apellido=" + apellido + ", cedula=" + cedula
-				+ ", genero=" + genero + "]";
+				+ ", genero=" + genero + ", semestre=" + semestre + "]";
 	}
 
 	// GET Y SET
@@ -80,5 +92,16 @@ public class Estudiante {
 	public void setGenero(String genero) {
 		this.genero = genero;
 	}
+
+	public String getSemestre() {
+		return semestre;
+	}
+
+	public void setSemestre(String semestre) {
+		this.semestre = semestre;
+	}
+	
+	
+	
 
 }
