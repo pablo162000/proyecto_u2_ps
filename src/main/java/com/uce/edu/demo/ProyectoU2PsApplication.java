@@ -30,42 +30,10 @@ public class ProyectoU2PsApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 		
-		
-		Estudiante est = new  Estudiante();
-		
-		est.setNombre("Rodrigo");
-		est.setApellido("Moya");
-		est.setCedula("7898151");
-		est.setSemestre("3");
-		est.setGenero("M");
+	iPersonaJpaService.buscarPorCedulaCriteriaApi("55");
 
-		
-		//iEstudianteJpaService.guardar(est);
-		//iEstudianteJpaService.buscarPorSemestreNamedNative("6");
-		//iEstudianteJpaService.buscarPorApellidoNative("Moya");
-		
-		
-		logJava.info(iEstudianteJpaService.buscarPorSemestreNamedNative("6"));
-
-	    logJava.info(iEstudianteJpaService.buscarPorApellidoNative("Moya"));
-	    
-	    logJava.info(iEstudianteJpaService.buscarPorCedulaNative("7898151"));
-	    
-	    logJava.info(iEstudianteJpaService.buscarNombreApellidoNamedNative("Pablo", "Suntaxi"));
-
-
-		//iEstudianteJpaService.actualizar(est);
-		//iEstudianteJpaService.bus
-		
-		//iPersonaJpaService.guardar(per);
-		
-		
-		//logJava.info(iPersonaJpaService.buscarPorCedulaNative("55"));
-		//logJava.info(iPersonaJpaService.buscarPorCedulaNamedNative("55"));
-		
-	
-	
-		
+	Persona perDinamica= iPersonaJpaService.buscarDinamicamente("Daniela", "Pozo", "F");
+		logJava.info(perDinamica);
 	
 	}
 
