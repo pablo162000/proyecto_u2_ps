@@ -6,27 +6,31 @@ import com.uce.edu.demo.repository.modelo.Estudiante;
 
 public interface IEstudianteJpaService {
 
-	
 	public Estudiante buscarPorId(Integer id);
-	
+
 	public List<Estudiante> buscarPorGeneroTyped(String genero);
+
 	public List<Estudiante> buscarPorGeneroNamed(String genero);
+
 	public List<Estudiante> buscarPorGeneroTypedNamed(String genero);
-	
+
 	public List<Estudiante> buscarPorNombreTyped(String nombre);
+
 	public List<Estudiante> buscarPorNombreNamed(String nombre);
+
 	public List<Estudiante> buscarPorNombreTypedNamed(String nombre);
-	
+
 	public List<Estudiante> buscarPorApellidoNative(String apellido);
+
 	public List<Estudiante> buscarPorSemestreNamedNative(String semestre);
-	
+
 	public Estudiante buscarPorCedulaNative(String cedula);
-	public Estudiante buscarNombreApellidoNamedNative(String nombre, String apellido );
 
-	
-	
+	public Estudiante buscarNombreApellidoNamedNative(String nombre, String apellido);
 
+	public List<Estudiante> buscarDinamicamente(String nombre, String apellido, String semestre);
 
+	public List<Estudiante> buscarDinamicamentePredicados(String apellido, String semestre, Integer id);
 
 	public void guardar(Estudiante estudiante);
 

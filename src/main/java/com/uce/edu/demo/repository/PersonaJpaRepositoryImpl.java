@@ -151,29 +151,46 @@ public class PersonaJpaRepositoryImpl implements IPersonaJpaRepository {
 		return myQueryFinal.getSingleResult();
 		
 		
-//		CriteriaBuilder myCriteria = this.entityManager.getCriteriaBuilder();
-//		CriteriaQuery<Persona> myQuery = myCriteria.createQuery(Persona.class);
-//		
-//		Root<Persona> myTabla = myQuery.from(Persona.class);
-//		
-//		Predicate predicadoNombre = myCriteria.equal(myTabla.get("nombre"), nombre);
-//		Predicate predicadoApellido = myCriteria.equal(myTabla.get("apellido"), apellido);
-//		
-//		Predicate miPredicadoFinal = null;
-//		
-//		if(genero.equals("M")) {
-//			miPredicadoFinal = myCriteria.and(predicadoNombre, predicadoApellido);
-//		} else {
-//			miPredicadoFinal = myCriteria.or(predicadoNombre, predicadoApellido);
-//		}
-//		
-//		myQuery.select(myTabla).where(miPredicadoFinal);
-//		
-//		TypedQuery<Persona> miQueryFinal = this.entityManager.createQuery(myQuery);
-//		
-//		return miQueryFinal.getSingleResult();
+
 		
 	}
+	
+	
+	@Override
+	public Persona buscarDinamicamentePredicados(String nombre, String apellido, String genero) {
+		// TODO Auto-generated method stub
+		CriteriaBuilder myCriteria = this.entityManager.getCriteriaBuilder();
+		CriteriaQuery<Persona> myQuery = myCriteria.createQuery(Persona.class);
+		
+		Root<Persona> myTabla = myQuery.from(Persona.class);
+		//pers_nombre ='Diana
+		Predicate predicadoNombre =myCriteria.equal(myTabla.get("nombre"), nombre);
+		//pers_apellido = 'Munoz'
+		Predicate predicadoApellido =myCriteria.equal(myTabla.get("apellido"), apellido);
+       //pers_nombre ='Diana' and pers_apellido = 'Munoz'
+		Predicate predicadoGenero =myCriteria.equal(myTabla.get("genero"), genero);
+
+		
+		
+		
+		Predicate miPredicadoFinal = null;
+		//(pers_apellido = 'Velz1' or pers_nombre = 'Daniel') and pers_genero = 'F
+		if(genero.equals("M")) {
+		 miPredicadoFinal = myCriteria.or(predicadoNombre, predicadoApellido);
+		 miPredicadoFinal = myCriteria.and(miPredicadoFinal, predicadoGenero);
+		}else {
+			 miPredicadoFinal = myCriteria.and(predicadoNombre, predicadoApellido);
+			 miPredicadoFinal = myCriteria.or(miPredicadoFinal, predicadoGenero);
+
+		}
+
+		myQuery.select(myTabla).where(miPredicadoFinal);
+
+		TypedQuery<Persona> myQueryFinal = this.entityManager.createQuery(myQuery);
+		return myQueryFinal.getSingleResult();	
+		
+	}
+
 
 	@Override
 	public List<Persona> buscarPorApellido(String apellido) {
@@ -234,4 +251,5 @@ public class PersonaJpaRepositoryImpl implements IPersonaJpaRepository {
 		return myQuery.executeUpdate();
 	}
 
+	
 }
