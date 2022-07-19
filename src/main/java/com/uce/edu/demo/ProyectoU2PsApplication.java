@@ -8,7 +8,11 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import com.uce.edu.demo.repository.modelo.Estudiante;
+import com.uce.edu.demo.repository.modelo.Persona;
+import com.uce.edu.demo.repository.modelo.PersonaContadorGenero;
+import com.uce.edu.demo.repository.modelo.PersonaSencilla;
 import com.uce.edu.demo.service.IEstudianteJpaService;
+import com.uce.edu.demo.service.IPersonaJpaService;
 
 @SpringBootApplication
 public class ProyectoU2PsApplication implements CommandLineRunner {
@@ -19,25 +23,38 @@ public class ProyectoU2PsApplication implements CommandLineRunner {
 
 	private static Logger logJava = Logger.getLogger(ProyectoU2PsApplication.class);
 
+	
+	@Autowired
+	private IPersonaJpaService iPersonaJpaService;
 	@Autowired
 	private IEstudianteJpaService iEstudianteJpaService;
 
 	@Override
 	public void run(String... args) throws Exception {
-
-		List<Estudiante> e1 = iEstudianteJpaService.buscarDinamicamente("Pepe", "Moya", "6");
-
-		for (Estudiante item : e1) {
-			logJava.info(item);
-		}
-
-		List<Estudiante> e2 = iEstudianteJpaService.buscarDinamicamentePredicados("Moya", "6", 6);
-
-		for (Estudiante item : e2) {
-			logJava.info(item);
-		}
-
 		
+		
+		Persona per1 = new Persona();
+		per1.setApellido("Chavez");
+		per1.setNombre("Dayana");
+		per1.setCedula("45685");
+		per1.setGenero("F");
+		
+		//iPersonaJpaService.guardar(per1);
+		//iPersonaJpaService.eliminar(12);
+
+		List<PersonaSencilla> listaPersona =  this.iPersonaJpaService.buscarPorApellidoSencillo("Velez");
+		
+		for(PersonaSencilla perItem : listaPersona) {
+			logJava.info("Persona Sencilla: "+ perItem);
+		}
+		
+		
+		List<PersonaContadorGenero> miListaPersonaGenero = iPersonaJpaService.consultarCantidadPorGenero();
+	
+		for(PersonaContadorGenero perItem : miListaPersonaGenero) {
+			logJava.info("Genero: "+ perItem);
+		}
+	
 	}
 
 }
