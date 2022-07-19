@@ -16,6 +16,8 @@ import org.jboss.logging.Logger;
 import org.springframework.stereotype.Repository;
 
 import com.uce.edu.demo.repository.modelo.Estudiante;
+import com.uce.edu.demo.repository.modelo.EstudianteContadorSemestre;
+import com.uce.edu.demo.repository.modelo.EstudianteSencillo;
 import com.uce.edu.demo.repository.modelo.Persona;
 
 import aj.org.objectweb.asm.Type;
@@ -170,12 +172,36 @@ public class EstudianteJpaRepositoryImpl implements IEstudianteJpaRepository {
 		miPredicadoFinal = myCriteria.and(miPredicadoFinal, predicadoId);
 
 		myQuery.select(myTabla).where(miPredicadoFinal);
-		
-		TypedQuery<Estudiante> myQueryFinal = this.entityManager.createQuery(myQuery);
 
+		TypedQuery<Estudiante> myQueryFinal = this.entityManager.createQuery(myQuery);
 
 		return myQueryFinal.getResultList();
 	}
+
+	@Override
+	public EstudianteSencillo buscarPorCedulaSencillo(String cedula) {
+		// TODO Auto-generated method stub
+
+		TypedQuery<EstudianteSencillo> myQuery = this.entityManager.createQuery(
+				"SELECT NEW com.uce.edu.demo.repository.modelo.EstudianteSencillo(e.apellido, e.cedula) FROM Estudiante e WHERE e.cedula = :datoCedula",
+				EstudianteSencillo.class);
+		myQuery.setParameter("datoCedula", cedula);
+		return myQuery.getSingleResult();
+	}
+	
+	@Override
+	public List<EstudianteContadorSemestre> consultarCantidadPorSemestre() {
+		// TODO Auto-generated method stub
+		
+		
+
+		TypedQuery<EstudianteContadorSemestre> myQuery = this.entityManager.createQuery(
+				"SELECT NEW com.uce.edu.demo.repository.modelo.EstudianteContadorSemestre(e.semestre, count(e.semestre)) FROM Estudiante e GROUP BY e.semestre",
+				EstudianteContadorSemestre.class);
+		return myQuery.getResultList();
+	}
+	
+	
 
 	@Override
 	public void insertar(Estudiante estudiante) {
@@ -202,5 +228,7 @@ public class EstudianteJpaRepositoryImpl implements IEstudianteJpaRepository {
 		this.entityManager.remove(estudiante);
 
 	}
+
+
 
 }

@@ -41,6 +41,8 @@ public interface IPersonaJpaRepository {
 	
 	
 	
+	
+	
 	public Persona buscarPorId(Integer id);
 
 	public void insertar(Persona persona);
