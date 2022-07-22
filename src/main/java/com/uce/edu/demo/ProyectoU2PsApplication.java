@@ -39,7 +39,7 @@ public class ProyectoU2PsApplication implements CommandLineRunner {
 		passport.setFechaEmision(LocalDateTime.now());
 		passport.setNumero("11848");
 		ciudadanoP.setPasaporte(passport);
-		iCiudadanoPJpaService.insertar(ciudadanoP);
+		//iCiudadanoPJpaService.insertar(ciudadanoP);
 
 
 		CiudadanoP ciudadano1 = new CiudadanoP();
@@ -50,15 +50,15 @@ public class ProyectoU2PsApplication implements CommandLineRunner {
 		ciudadano1.setNombre("Karen");
 		
 		logJava.info("Se ha insertado");
-		iCiudadanoPJpaService.insertar(ciudadano1);
+		//iCiudadanoPJpaService.insertar(ciudadano1);
 		ciudadanoP.setNombre("Pedro");
 		ciudadanoP.setCedula("1724157894");
 		logJava.info("Se ha actualizado");
-		iCiudadanoPJpaService.actualizar(ciudadanoP);
-		logJava.info("Se ha buscado"+iCiudadanoPJpaService.buscarPorId(14));
-		iCiudadanoPJpaService.buscarPorId(15);
+		//iCiudadanoPJpaService.actualizar(ciudadanoP);
+		logJava.info("Se ha buscado"+iCiudadanoPJpaService.buscarPorId(16));
+		//iCiudadanoPJpaService.buscarPorId(15);
 		logJava.info("Se ha eliminado");
-		iCiudadanoPJpaService.eliminar(15);
+		//iCiudadanoPJpaService.eliminar(15);
 		
 		
 		

@@ -40,13 +40,15 @@ public class CiudadanoP {
 	
 	
 	
+
+	//GET Y SET
+	
 	@Override
 	public String toString() {
 		return "CiudadanoP [id=" + id + ", nombre=" + nombre + ", apellido=" + apellido + ", cedula=" + cedula
-				+ ", fechaNacimiento=" + fechaNacimiento + ", pasaporte=" + pasaporte + "]";
+				+ ", fechaNacimiento=" + fechaNacimiento + "]";
 	}
-	//GET Y SET
-	
+
 	public Pasaporte getPasaporte() {
 		return pasaporte;
 	}
