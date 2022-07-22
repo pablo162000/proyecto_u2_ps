@@ -1,7 +1,6 @@
 package com.uce.edu.demo;
 
-import java.math.BigDecimal;
-import java.util.List;
+import java.time.LocalDateTime;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,18 +8,9 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import com.uce.edu.demo.repository.ICiudadanoJpaRepository;
-import com.uce.edu.demo.repository.modelo.Ciudadano;
-import com.uce.edu.demo.repository.modelo.Empleado;
-import com.uce.edu.demo.repository.modelo.Estudiante;
-import com.uce.edu.demo.repository.modelo.EstudianteContadorSemestre;
-import com.uce.edu.demo.repository.modelo.EstudianteSencillo;
-import com.uce.edu.demo.repository.modelo.Persona;
-import com.uce.edu.demo.repository.modelo.PersonaContadorGenero;
-import com.uce.edu.demo.repository.modelo.PersonaSencilla;
-import com.uce.edu.demo.service.ICiudadanoJpaService;
-import com.uce.edu.demo.service.IEstudianteJpaService;
-import com.uce.edu.demo.service.IPersonaJpaService;
+import com.uce.edu.demo.repository.modelo.CiudadanoP;
+import com.uce.edu.demo.repository.modelo.Pasaporte;
+import com.uce.edu.demo.service.ICiudadanoPJpaService;
 
 @SpringBootApplication
 public class ProyectoU2PsApplication implements CommandLineRunner {
@@ -32,37 +22,48 @@ public class ProyectoU2PsApplication implements CommandLineRunner {
 	private static Logger logJava = Logger.getLogger(ProyectoU2PsApplication.class);
 
 	@Autowired
-	private ICiudadanoJpaService ciudadanoService;	
+	private ICiudadanoPJpaService iCiudadanoPJpaService;
+
 	@Override
 	public void run(String... args) throws Exception {
+
+		CiudadanoP ciudadanoP = new CiudadanoP();
+
+		ciudadanoP.setApellido("Suntaxi");
+		ciudadanoP.setCedula("1724157688");
+		ciudadanoP.setFechaNacimiento(LocalDateTime.now());
+		ciudadanoP.setNombre("Pablo");
+		Pasaporte  passport= new Pasaporte();
+		passport.setCiudadanop(ciudadanoP);
+		passport.setFechaCaducidad(LocalDateTime.now());
+		passport.setFechaEmision(LocalDateTime.now());
+		passport.setNumero("11848");
+		ciudadanoP.setPasaporte(passport);
+		iCiudadanoPJpaService.insertar(ciudadanoP);
+
+
+		CiudadanoP ciudadano1 = new CiudadanoP();
+
+		ciudadano1.setApellido("Suntaxi");
+		ciudadano1.setCedula("1724157699");
+		ciudadano1.setFechaNacimiento(LocalDateTime.now());
+		ciudadano1.setNombre("Karen");
+		
+		logJava.info("Se ha insertado");
+		iCiudadanoPJpaService.insertar(ciudadano1);
+		ciudadanoP.setNombre("Pedro");
+		ciudadanoP.setCedula("1724157894");
+		logJava.info("Se ha actualizado");
+		iCiudadanoPJpaService.actualizar(ciudadanoP);
+		logJava.info("Se ha buscado"+iCiudadanoPJpaService.buscarPorId(14));
+		iCiudadanoPJpaService.buscarPorId(15);
+		logJava.info("Se ha eliminado");
+		iCiudadanoPJpaService.eliminar(15);
+		
+		
+		
 		
 
-		
-		Ciudadano ciudadano=new Ciudadano();
-		ciudadano.setNombre("Xavier");
-		ciudadano.setApellido("Paez");
-		
-		Empleado empleado=new Empleado();
-		empleado.setCodigoIess("12345");
-		empleado.setSalario(new BigDecimal(100));
-		empleado.setCiudadano(ciudadano);
-		
-		ciudadano.setEmpleado(empleado);
-		
-		this.ciudadanoService.insertarCiudadano(ciudadano);
-		
-	
-		Ciudadano ciudadano2=new Ciudadano();
-		ciudadano2.setNombre("Mike");
-		ciudadano2.setApellido("Garcia");
-		
-		Empleado empleado2=new Empleado();
-		empleado2.setCodigoIess("442345");
-		empleado2.setSalario(new BigDecimal(100));
-		empleado2.setCiudadano(ciudadano2);
-		
-		ciudadano2.setEmpleado(empleado2);
-		
 	}
 
 }
