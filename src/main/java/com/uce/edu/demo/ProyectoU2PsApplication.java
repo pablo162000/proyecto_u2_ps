@@ -1,16 +1,15 @@
 package com.uce.edu.demo;
 
-import java.time.LocalDateTime;
-
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import com.uce.edu.demo.repository.modelo.CiudadanoP;
-import com.uce.edu.demo.repository.modelo.Pasaporte;
-import com.uce.edu.demo.service.ICiudadanoPJpaService;
+import com.uce.edu.demo.repository.modelo.onetomany.Habitacion;
+import com.uce.edu.demo.repository.modelo.onetomany.Hotel;
+import com.uce.edu.demo.service.IHabitacionService;
+import com.uce.edu.demo.service.IHotelService;
 
 @SpringBootApplication
 public class ProyectoU2PsApplication implements CommandLineRunner {
@@ -22,46 +21,38 @@ public class ProyectoU2PsApplication implements CommandLineRunner {
 	private static Logger logJava = Logger.getLogger(ProyectoU2PsApplication.class);
 
 	@Autowired
-	private ICiudadanoPJpaService iCiudadanoPJpaService;
+	private IHotelService iHotelService;
+
+	@Autowired
+	private IHabitacionService iHabitacionService;
 
 	@Override
 	public void run(String... args) throws Exception {
 
-		CiudadanoP ciudadanoP = new CiudadanoP();
-
-		ciudadanoP.setApellido("Suntaxi");
-		ciudadanoP.setCedula("1724157688");
-		ciudadanoP.setFechaNacimiento(LocalDateTime.now());
-		ciudadanoP.setNombre("Pablo");
-		Pasaporte  passport= new Pasaporte();
-		passport.setCiudadanop(ciudadanoP);
-		passport.setFechaCaducidad(LocalDateTime.now());
-		passport.setFechaEmision(LocalDateTime.now());
-		passport.setNumero("11848");
-		ciudadanoP.setPasaporte(passport);
-
-
-		CiudadanoP ciudadano1 = new CiudadanoP();
-
-		ciudadano1.setApellido("Suntaxi");
-		ciudadano1.setCedula("1724157699");
-		ciudadano1.setFechaNacimiento(LocalDateTime.now());
-		ciudadano1.setNombre("Karen");
 		
-		logJava.info("Se ha insertado");
-		iCiudadanoPJpaService.insertar(ciudadanoP);
+	Hotel hotel2 = new Hotel();
+	hotel2.setNombre("Hilton Colon GUY");
+	hotel2.setDireccion("Malecon");
+	//this.iHotelService.insertar(hotel2);
+		
+		Hotel hote =new Hotel();
+		hote.setId(1);
 
-		ciudadanoP.setNombre("Pedro");
-		ciudadanoP.setCedula("1724157894");
-		logJava.info("Se ha actualizado");
-		iCiudadanoPJpaService.actualizar(ciudadanoP);
-		logJava.info("Se ha buscado"+iCiudadanoPJpaService.buscarPorId(16));
-		logJava.info("Se ha eliminado");
-		iCiudadanoPJpaService.eliminar(16);
+		Habitacion habi1 = new Habitacion();
+		habi1.setNumero("A234");
+		habi1.setPiso("10");
+		habi1.setTipo("Familiar");
+		habi1.setHotel(hote);
 		
-		
-		
-		
+		Habitacion habi2 = new Habitacion();
+		habi2.setNumero("1718");
+		habi2.setPiso("1");
+		habi2.setTipo("Matrimonial");
+		habi2.setHotel(hote);
+
+		//this.iHabitacionService.insertar(habi1);
+		this.iHabitacionService.insertar(habi2);
+
 
 	}
 
