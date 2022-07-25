@@ -6,9 +6,12 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import com.uce.edu.demo.repository.IHospitalRepository;
 import com.uce.edu.demo.repository.modelo.onetomany.Habitacion;
+import com.uce.edu.demo.repository.modelo.onetomany.Hospital;
 import com.uce.edu.demo.repository.modelo.onetomany.Hotel;
 import com.uce.edu.demo.service.IHabitacionService;
+import com.uce.edu.demo.service.IHospitalService;
 import com.uce.edu.demo.service.IHotelService;
 
 @SpringBootApplication
@@ -21,38 +24,32 @@ public class ProyectoU2PsApplication implements CommandLineRunner {
 	private static Logger logJava = Logger.getLogger(ProyectoU2PsApplication.class);
 
 	@Autowired
-	private IHotelService iHotelService;
-
-	@Autowired
-	private IHabitacionService iHabitacionService;
+	private IHospitalService iHospitalService;
 
 	@Override
 	public void run(String... args) throws Exception {
 
+		Hospital hospital = new Hospital();
+		hospital.setDireccion("La Gasca");
+		hospital.setNombre("Andrade Marin");
 		
-	Hotel hotel2 = new Hotel();
-	hotel2.setNombre("Hilton Colon GUY");
-	hotel2.setDireccion("Malecon");
-	//this.iHotelService.insertar(hotel2);
+		//this.iHospitalService.insertar(hospital);
 		
-		Hotel hote =new Hotel();
-		hote.setId(1);
-
-		Habitacion habi1 = new Habitacion();
-		habi1.setNumero("A234");
-		habi1.setPiso("10");
-		habi1.setTipo("Familiar");
-		habi1.setHotel(hote);
+		Hospital hospital1 = new Hospital();
+		hospital1.setDireccion("La Colon");
+		hospital1.setNombre("Baca Ortiz");
+		this.iHospitalService.insertar(hospital1);
 		
-		Habitacion habi2 = new Habitacion();
-		habi2.setNumero("1718");
-		habi2.setPiso("1");
-		habi2.setTipo("Matrimonial");
-		habi2.setHotel(hote);
-
-		//this.iHabitacionService.insertar(habi1);
-		this.iHabitacionService.insertar(habi2);
-
+		hospital1.setDireccion("La Marin");
+		hospital1.setNombre("IESS");
+		this.iHospitalService.actualizar(hospital1);
+		
+		Hospital hospitalbuscado = this.iHospitalService.buscar(1);
+		logJava.info(hospitalbuscado);
+		
+		
+		this.iHospitalService.eliminar(3);
+		
 
 	}
 

@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 import com.uce.edu.demo.repository.modelo.onetomany.Hotel;
 @Repository
 @Transactional
-public class IHotelRepositoryImpl implements IHotelRepository{
+public class HotelRepositoryImpl implements IHotelRepository{
 
 	@PersistenceContext
 	private EntityManager entityManager;

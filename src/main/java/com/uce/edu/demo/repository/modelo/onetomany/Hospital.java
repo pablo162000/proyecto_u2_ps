@@ -2,7 +2,6 @@ package com.uce.edu.demo.repository.modelo.onetomany;
 
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,30 +10,34 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-
 @Entity
-@Table(name = "hotel")
-public class Hotel {
-
+@Table(name = "hospital")
+public class Hospital {
+	
 	@Id
-	@Column(name = "hote_id")
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "hote_id_seq")
-	@SequenceGenerator(name = "hote_id_seq", sequenceName = "hote_id_seq", allocationSize = 1)
+	@Column(name= "hosp_id")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "hosp_id_seq")
+	@SequenceGenerator(name = "hosp_id_seq", sequenceName = "hosp_id_seq", allocationSize = 1)
 	private Integer id;
 	
-	@Column(name = "hote_nombre")
+	
+	
+	
+	@Override
+	public String toString() {
+		return "Hospital [id=" + id + ", nombre=" + nombre + ", direccion=" + direccion + "]";
+	}
+
+	// GET Y SET
+	@Column(name = "hosp_nombre")
 	private String nombre;
 	
-	@Column(name = "hote_direccion")
+	@Column(name = "hosp_direccion")
 	private String direccion;
 	
-	@OneToMany(mappedBy = "hotel")
-	private List<Habitacion> habitaciones;
-	
-	
+	@OneToMany(mappedBy = "hospital")
+	private List<Doctor> doctores;
 
-	
-	//GET Y SET
 	public Integer getId() {
 		return id;
 	}
@@ -59,16 +62,17 @@ public class Hotel {
 		this.direccion = direccion;
 	}
 
-	public List<Habitacion> getHabitaciones() {
-		return habitaciones;
+	public List<Doctor> getDoctores() {
+		return doctores;
 	}
 
-	public void setHabitaciones(List<Habitacion> habitaciones) {
-		this.habitaciones = habitaciones;
+	public void setDoctores(List<Doctor> doctores) {
+		this.doctores = doctores;
 	}
+
 	
 	
 	
 	
-	
+
 }
