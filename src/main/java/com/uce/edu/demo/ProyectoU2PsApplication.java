@@ -1,7 +1,7 @@
 package com.uce.edu.demo;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,9 +9,12 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import com.uce.edu.demo.repository.modelo.manytomany.Autor;
-import com.uce.edu.demo.repository.modelo.manytomany.Libro;
-import com.uce.edu.demo.service.ILibroService;
+import com.uce.edu.demo.repository.modelo.manytomany.Autor2;
+import com.uce.edu.demo.repository.modelo.manytomany.Libro2;
+import com.uce.edu.demo.repository.modelo.manytomany.LibroAutor;
+import com.uce.edu.demo.service.IAutor2Service;
+import com.uce.edu.demo.service.ILibro2Service;
+import com.uce.edu.demo.service.ILibroAutorService;
 
 @SpringBootApplication
 public class ProyectoU2PsApplication implements CommandLineRunner {
@@ -22,36 +25,81 @@ public class ProyectoU2PsApplication implements CommandLineRunner {
 
 	private static Logger logJava = Logger.getLogger(ProyectoU2PsApplication.class);
 
+	
+
 	@Autowired
-	private ILibroService iLibroService;
+	private IAutor2Service iAutor2Service;
+
+	@Autowired
+	private ILibro2Service iLibro2Service;
 
 	@Override
 	public void run(String... args) throws Exception {
 
-		Libro libro = new Libro();
+		Libro2 libro1 = new Libro2();
+		libro1.setCantidadPaginas(800);
+		libro1.setTitulo("Prueba 1");
+		
+		Autor2 autor1 = new Autor2();
+		autor1.setNombre("Homero");
 
-		libro.setCantidadPaginas(500);
-		libro.setTitulo("Libro titulo");
+		Autor2 autor2 = new Autor2();
+		autor2.setNombre("Anonimo");
 
+		
+		
+		LibroAutor lautor1 = new LibroAutor();
+		lautor1.setAutor2(autor1);
+		lautor1.setLibro2(libro1);
 
-		Autor autor = new Autor();
-		autor.setNombre("Juan Perez");
-		Autor autor1 = new Autor();
-		autor1.setNombre("Juan Perez 2");
-		Autor autor2 = new Autor();
-		autor.setNombre("Juan Perez 3");
+		LibroAutor lautor2 = new LibroAutor();
+		lautor2.setLibro2(libro1);
+		lautor2.setAutor2(autor2);
+
+		List<LibroAutor> lista = new ArrayList<>();
+		lista.add(lautor1);
+		lista.add(lautor2);
+
+		libro1.setLibroAutores(lista);
+		
+		iLibro2Service.insertar(libro1);
+		
+		/////////////////////////////////////////////////////
+		
+		Autor2 autor3 = new Autor2();
+		autor3.setNombre("Carlos");
 		
 		
-		//Set<Libro> libros= new HashSet<>();
 		
-		Set<Autor> autores= new HashSet<>();
-		autores.add(autor);
-		autores.add(autor1);
-		autores.add(autor2);
+		Libro2 libro3 = new Libro2();
+		libro3.setTitulo("Prueba3");
+		libro3.setCantidadPaginas(100);
 		
-		libro.setAutores(autores);
 		
-	    iLibroService.insertar(libro);
+		LibroAutor libroa1 = new LibroAutor();
+		libroa1.setLibro2(libro3);
+		libroa1.setAutor2(autor3);
+		
+		
+		Libro2 libro2 = new Libro2();
+		libro2.setCantidadPaginas(600);
+		libro2.setTitulo("Prueba2");
+		
+		LibroAutor libroa2 = new LibroAutor();
+		libroa2.setLibro2(libro2);
+		libroa2.setAutor2(autor3);
+
+		
+		List<LibroAutor> listaLibros = new ArrayList<>();
+		listaLibros.add(libroa2);
+		listaLibros.add(libroa1);
+
+		autor3.setLibroAutores(listaLibros);
+		
+		iAutor2Service.insertar(autor3);
+		
+		
+		
 
 		
 
